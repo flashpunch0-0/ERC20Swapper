@@ -20,14 +20,14 @@ contract Block is ERC20Swapper {
     string public constant symbol = "KVB";
     uint8 constant decimals = 2;  //no need to make decimals public
     uint public override totalSupply;
-    address public contractOwner;
-    mapping(address=>uint) public balances;
+    address private contractOwner;
+    mapping(address=>uint) private balances;//made balances private for security
     mapping(address=>mapping(address=>uint)) allowed; //used to mapped the addresses which have been approved with a limit of tokens to buy
     uint256 public unitsOneEthCanBuy  = 10; // how much can 1 ether buy
 
-    constructor() {
+    constructor(uint256 total) {
         // here i have already declared 100000 is total supply
-        totalSupply=100000;
+        totalSupply=total;
         contractOwner=msg.sender;
         // msg.sender = address which deploys and owns contract
         balances[contractOwner]=totalSupply;
